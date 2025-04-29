@@ -1,0 +1,22 @@
+version: 2.1
+
+executors:
+  java-executor:
+    docker:
+      - image: maven:3.8.1-openjdk-21
+    working_directory: ~/repo
+
+jobs:
+  build:
+    executor: java-executor
+    steps:
+      - checkout
+      - run:
+          name: Run API Tests
+          command: mvn clean test
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - build
